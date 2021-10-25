@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>688</width>
+    <width>702</width>
     <height>599</height>
    </rect>
   </property>
@@ -24,11 +24,11 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>Выбор дежурных</string>
      </attribute>
      <widget class="QFrame" name="frame_2">
       <property name="geometry">
@@ -318,7 +318,7 @@
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Tab 2</string>
+      <string>Личные данные</string>
      </attribute>
      <widget class="QFrame" name="frame">
       <property name="geometry">
@@ -636,7 +636,7 @@
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
-      <string>Page</string>
+      <string>Нежелательные дни</string>
      </attribute>
      <widget class="QFrame" name="frame_4">
       <property name="geometry">
@@ -810,7 +810,7 @@
     </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
-      <string>Page</string>
+      <string>Список дежурств</string>
      </attribute>
      <widget class="QFrame" name="frame_5">
       <property name="geometry">
@@ -893,7 +893,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>688</width>
+     <width>702</width>
      <height>21</height>
     </rect>
    </property>

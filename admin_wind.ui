@@ -24,11 +24,11 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="Kalendar">
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>Распределение дежурств</string>
      </attribute>
      <widget class="QFrame" name="frame_2">
       <property name="geometry">
@@ -221,7 +221,7 @@
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Tab 2</string>
+      <string>Личные данные</string>
      </attribute>
      <widget class="QFrame" name="frame">
       <property name="geometry">
@@ -487,7 +487,7 @@
     </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
-      <string>Page</string>
+      <string>Список дежурств</string>
      </attribute>
      <widget class="QTableWidget" name="tableWidget_2">
       <property name="geometry">
