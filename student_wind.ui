@@ -24,11 +24,11 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="widget">
+    <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Подать заявку</string>
+      <string>Tab 1</string>
      </attribute>
      <widget class="QFrame" name="frame_2">
       <property name="geometry">
@@ -128,7 +128,7 @@
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Личные данные</string>
+      <string>Tab 2</string>
      </attribute>
      <widget class="QFrame" name="frame">
       <property name="geometry">
