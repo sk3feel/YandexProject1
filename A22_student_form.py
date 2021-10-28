@@ -9,12 +9,13 @@ from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 import sqlite3
 
-class Admin_Form(QMainWindow):
+
+
+class Student_Form(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('A12_admin_form.ui', self)
+        uic.loadUi('A12_student_form.ui', self)
         self.setWindowTitle('DutyManager')
-
 
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
@@ -22,7 +23,7 @@ def except_hook(cls, exception, traceback):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Admin_Form()
+    ex = Student_Form()
     ex.show()
     sys.excepthook = except_hook
     sys.exit(app.exec_())

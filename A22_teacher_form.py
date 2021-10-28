@@ -16,6 +16,7 @@ class Teacher_Form(QMainWindow):
         uic.loadUi('A12_teacher_form.ui', self)
         self.setWindowTitle('DutyManager')
 
+
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
 
