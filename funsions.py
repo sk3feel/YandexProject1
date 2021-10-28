@@ -52,6 +52,7 @@ def check_name(name):
     return name
 
 
+
 def check_fathername(fathername):
     if len(fathername) < 2:
         return 'слишком короткое отчество'
