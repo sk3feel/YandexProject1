@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 import sqlite3
 
 
+
 class Teacher_Form(QMainWindow):
     def __init__(self):
         super().__init__()

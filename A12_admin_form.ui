@@ -317,7 +317,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="ledit_password_2">
+      <widget class="QLineEdit" name="ledit_surname">
        <property name="geometry">
         <rect>
          <x>270</x>
@@ -369,7 +369,7 @@
         <string>Имя:</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="ledit_password_3">
+      <widget class="QLineEdit" name="ledit_name">
        <property name="geometry">
         <rect>
          <x>270</x>
@@ -421,7 +421,7 @@
         <string>Пароль:</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="ledit_login_2">
+      <widget class="QLineEdit" name="ledit_gender">
        <property name="geometry">
         <rect>
          <x>270</x>
@@ -431,7 +431,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_register_4">
+      <widget class="QPushButton" name="btn_change_gender">
        <property name="geometry">
         <rect>
          <x>270</x>
@@ -452,7 +452,7 @@
         <string>Изменить пол</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_register_5">
+      <widget class="QPushButton" name="btn_change_password">
        <property name="geometry">
         <rect>
          <x>270</x>
@@ -473,7 +473,7 @@
         <string>Изменить пароль</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="ledit_password_5">
+      <widget class="QLineEdit" name="ledit_fathername">
        <property name="geometry">
         <rect>
          <x>270</x>

@@ -14,6 +14,8 @@ from A22_student_form import Student_Form
 from A22_teacher_form import Teacher_Form
 from A22_admin_form import Admin_Form
 
+LOGIN = ''
+
 class Log_In(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -23,9 +25,6 @@ class Log_In(QMainWindow):
         self.btn_register.clicked.connect(self.registration)
         self.btn_enter.clicked.connect(self.enter)
         self.reg_wind = Registr()
-        self.student_wind = Student_Form()
-        self.teacher_wind = Teacher_Form()
-        self.admin_wind = Admin_Form()
 
 
     def registration(self):
@@ -33,6 +32,7 @@ class Log_In(QMainWindow):
 
 
     def enter(self):
+        global LOGIN
         f_entre = False
         con = sqlite3.connect('duty_db.sqlite')
         cur = con.cursor()
@@ -52,12 +52,19 @@ class Log_In(QMainWindow):
         if not f_entre:
             return f_entre
         code = result[4]
+        LOGIN = login
+        self.student_wind = Student_Form()
+        self.teacher_wind = Teacher_Form()
+        self.admin_wind = Admin_Form()
+
         if code == 0:
             self.student_wind.show()
         if code == 1:
             self.teacher_wind.show()
         if code == 2:
             self.admin_wind.show()
+
+
 
 
 def except_hook(cls, exception, traceback):
@@ -70,6 +77,7 @@ if __name__ == '__main__':
     ex.show()
     sys.excepthook = except_hook
     sys.exit(app.exec_())
+
 
 
 

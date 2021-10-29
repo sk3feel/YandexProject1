@@ -9,11 +9,16 @@ from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 import sqlite3
 
+
 class Admin_Form(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('A12_admin_form.ui', self)
         self.setWindowTitle('DutyManager')
+        self.initUI()
+
+    def initUI(self):
+        self.ledit_login.setText('dgsgsggs')
 
 
 def except_hook(cls, exception, traceback):

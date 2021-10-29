@@ -10,6 +10,7 @@ import sqlite3
 from PyQt5.QtWidgets import QInputDialog
 import funsions
 
+
 class Registr(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -24,7 +25,7 @@ class Registr(QMainWindow):
         clas, ok_pressed = QInputDialog.getItem(
             self, "Выберите ваш класс", "Какой класс?",
             (
-                'нет класса','7А', '7Б', '7В', '7Г',
+                '7А', '7Б', '7В', '7Г',
                 '8А', '8Б', '8В', '8Г', '8Д',
                 '9А', '9Б', '9В', '9Г', '9Д',
                 '10А', '10Б', '10В', '10Г', '10Д',
@@ -41,7 +42,6 @@ class Registr(QMainWindow):
         if ok_pressed:
             self.gender = gender
             self.btn_sex.setText(gender)
-
 
     def create_account(self):
         self.login = self.ledit_login.text()
@@ -80,6 +80,10 @@ class Registr(QMainWindow):
             self.statusBar().showMessage(funsions.check_pass(self.password))
             return None
 
+        if self.code == '2':
+            self.clas = -1
+            self.btn_class.setText('админ')
+
         if self.clas == 0:
             self.statusBar().showMessage('Вы не выбрали класс')
             return None
@@ -90,27 +94,57 @@ class Registr(QMainWindow):
 
         con = sqlite3.connect('duty_db.sqlite')
         cur = con.cursor()
+
+        # для проверки на одинаковый логин
         result = cur.execute(
             '''SELECT * FROM Users WHERE login=?''', (self.login,)
         ).fetchone()
 
         if result is None:
-            cur.execute(
-                '''INSERT INTO Users
-                (surname,name, patronymic,status,class,gender,password,login)
-                 VALUES(?,?,?,?,?,?,?,?)''',
-                (self.surname, self.name, self.fathername, self.code,
-                 self.clas, self.gender, self.password, self.login,)
-            ).fetchall()
-            con.commit()
-            con.close()
-            self.statusBar().showMessage('Вы успешно создали аккаунт')
-            self.close()
+            if self.clas != -1:
+                class_id = cur.execute(
+                    '''SELECT classId FROM Classes WHERE title = ?''', (self.clas,)
+                ).fetchone()[0]
+            else:
+                class_id = 25
+
+            loginTeacher = cur.execute(
+                '''SELECT loginTeacher FROM Classes WHERE classId = ?''', (class_id,)
+            ).fetchone()[0]
+
+
+            if not (self.code == '1' and loginTeacher != None):
+                cur.execute(
+                    '''INSERT INTO Users
+                    (surname,name, patronymic,status,classId,gender,password,login, desireSt)
+                     VALUES(?,?,?,?,?,?,?,?,?)''',
+                    (self.surname, self.name, self.fathername, self.code,
+                     class_id, self.gender, self.password, self.login, False,)
+                ).fetchall()
+                con.commit()
+
+                if self.code == '1':
+                    cur.execute(
+                        '''UPDATE Classes SET loginTeacher = ? WHERE classId = ?''', (self.login, class_id,)
+                    )
+
+                    con.commit()
+
+                con.close()
+                self.statusBar().showMessage('Вы успешно создали аккаунт')
+                self.close()
+            else:
+                self.statusBar().showMessage('Классный руководитель этого класса уже зарегистрирован')
+                con.close()
         else:
             self.statusBar().showMessage('Пользователь с таким логином уже существует')
+            con.close()
+
+
 
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
