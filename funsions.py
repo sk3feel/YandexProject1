@@ -1,61 +1,88 @@
-def check_pass(password):
-    count = 0
-    repetition = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm', 'йцукенгшщзхъ', 'фывапролджэё', 'ячсмитьбю']
-    if len(password) < 9:
-        return 'длина пароля меньше 9 символов'
-    if password.islower() or password.isupper():
-        return 'в пароле все символы одного регистра'
-    if password.isalpha():
-        return 'в пароле нет ни одной цифры'
-    if password.isdigit():
-        return 'в пароле все символы одного регистра'
-    for i in '1234567890':
-        if i in password:
-            count += 1
-    if count == 0:
-        return 'в пароле нет ни одной цифры'
+import sqlite3
 
-    for i in repetition:
-        for j in range(len(i) - 2):
-            if i[j: j + 3] in password.lower():
-                return 'в пароле есть комбинация симоволов, стоящих рядом в строке клавиатуры'
-    return password
+user_inx_surname = 1
+user_inx_name = 2
+user_inx_fathername = 3
+user_inx_code = 4
+user_inx_classid = 5
+user_inx_gender = 6
+user_inx_password = 7
+user_inx_login = 8
+user_inx_desirest = 9
+user_inx_served = 10
+user_inx_act = 11
 
 
-def check_login(login):
-    if len(login) < 5:
-        return 'длина логина меньше 5 символов'
-    if ' ' in login:
-        return 'в логине есть символ пробела'
-    return login
+def get_users_info(login):
+    con = sqlite3.connect('duty_db.sqlite')
+    cur = con.cursor()
+    result = cur.execute(
+        '''SELECT * FROM Users WHERE login=?''', (login,)
+    ).fetchone()
+    con.close()
+    return result
 
 
-def check_code(code):
-    if code not in ['0', '1', '2']:
-        return 'такого кода не существует'
-    return code
+def get_class_id(clas):
+    con = sqlite3.connect('duty_db.sqlite')
+    cur = con.cursor()
+    result = cur.execute(
+        '''SELECT classId FROM Classes WHERE title=?''', (clas,)
+    ).fetchone()
+    con.close()
+    return result[0]
 
 
-def check_surname(surname):
-    if len(surname) < 2:
-        return 'слишком короткая фамилия'
-    if not surname.isalpha():
-        return 'в фамилии могут присутствовать только буквы'
-    return surname
+def get_class_title(classid):
+    con = sqlite3.connect('duty_db.sqlite')
+    cur = con.cursor()
+    result = cur.execute(
+        '''SELECT title FROM Classes WHERE classId=?''', (classid,)
+    ).fetchone()
+    con.close()
+    return result[0]
+
+def get_students(classid):
+    con = sqlite3.connect('duty_db.sqlite')
+    cur = con.cursor()
+    result = cur.execute(
+        '''SELECT * FROM Users WHERE classId=?''', (classid,)
+    ).fetchall()
+    con.close()
+    res_arr = []
+    for i in result:
+        pass
+    return result
 
 
-def check_name(name):
-    if len(name) < 2:
-        return 'слишком короткое имя'
-    if not name.isalpha():
-        return 'в имени могут присутствовать только буквы'
-    return name
+print(get_students(1))
 
 
 
-def check_fathername(fathername):
-    if len(fathername) < 2:
-        return 'слишком короткое отчество'
-    if not fathername.isalpha():
-        return 'в отчестве могут присутствовать только буквы'
-    return fathername
+def users_get_class_id(login):
+    result = get_users_info(login)
+    return get_class_title(result[user_inx_classid])
+
+
+def get_day_of_duty(classid):
+    con = sqlite3.connect('duty_db.sqlite')
+    cur = con.cursor()
+    result = cur.execute(
+        '''SELECT date FROM Dutys WHERE classId=? AND passed='0' ''', (classid,)
+    ).fetchall()
+    con.close()
+    return result
+
+
+def get_near_day_of_duty(classid):
+    arr = get_day_of_duty(classid)
+    arr = [i[0] for i in arr]
+    res_arr = []
+    if arr:
+        for i in arr:
+            i = [int(j) for j in i.split()][::-1]
+            res_arr.append(i)
+        res_arr.sort()
+        return ' '.join([str(i) for i in res_arr[0]][::-1])
+    return '-'
+
