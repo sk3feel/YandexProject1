@@ -1,14 +1,29 @@
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
+
 from PyQt5 import uic
-from PyQt5.QtGui import QPixmap, QTransform
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog
-from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
-import csv
+
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
 import sqlite3
 from PyQt5.QtWidgets import QInputDialog
-import funsions
+
+Login = 'логин'
+Surname = 'фамилия'
+Name = 'имя'
+Fathername = 'отчество'
+Password = 'пароль'
+Code = 'код пользователя'
+Gender = 'гендер'
+Class = 'класс'
+ClassId = 'классId'
+base_desireSt = False
+base_served = 0
+codes = ['0', '1', '2']
+
+student_cod = '0'
+teacher_cod = '1'
+admin_cod = '2'
+no_class = 'нет'
 
 
 class Registr(QMainWindow):
@@ -19,18 +34,34 @@ class Registr(QMainWindow):
         self.btn_create_account.clicked.connect(self.create_account)
         self.btn_class.clicked.connect(self.pick_class)
         self.btn_sex.clicked.connect(self.pick_sex)
+        self.con = sqlite3.connect('duty_db.sqlite')
+        self.cur = self.con.cursor()
         self.clas, self.gender = 0, 0
+
+    def create_account(self):
+        self.load_data()
+        if self.check_corr_datas():
+            if self.check_unique_login():
+                class_id = self.get_class_id()
+                self.datas_dict[ClassId] = class_id
+                if self.check_exist_class_teacher(class_id):
+                    if self.check_exist_class_teacher(class_id):
+                        if self.check_cod_and_class():
+                            self.add_user()
+                            self.add_class_teacher()
+                            self.con.close()
+                            self.close()
 
     def pick_class(self):
         clas, ok_pressed = QInputDialog.getItem(
             self, "Выберите ваш класс", "Какой класс?",
             (
-                '7А', '7Б', '7В', '7Г',
+                no_class, '7А', '7Б', '7В', '7Г',
                 '8А', '8Б', '8В', '8Г', '8Д',
                 '9А', '9Б', '9В', '9Г', '9Д',
                 '10А', '10Б', '10В', '10Г', '10Д',
                 '11А', '11Б', '11В', '11Г', '11Д'
-            ), 0, False)
+            ), 1, False)
         if ok_pressed:
             self.clas = clas
             self.btn_class.setText(clas)
@@ -43,103 +74,86 @@ class Registr(QMainWindow):
             self.gender = gender
             self.btn_sex.setText(gender)
 
-    def create_account(self):
-        self.login = self.ledit_login.text()
-
-        if self.login != funsions.check_login(self.login):
-            self.statusBar().showMessage(funsions.check_login(self.login))
-            return None
-
+    def load_data(self):
+        self.datas_dict = {
+            Login: self.ledit_login.text(),
+            Surname: self.ledit_lastname.text(),
+            Name: self.ledit_name.text(),
+            Fathername: self.ledit_fathername.text(),
+            Password: self.ledit_password.text()
+        }
+        # Код, класс и пол пока не добавляем в словарь, они подлежат другой проверке:
+        #
         self.code = self.ledit_cod.text()
 
-        if self.code != funsions.check_code(self.code):
-            self.statusBar().showMessage(funsions.check_code(self.code))
-            return None
+    def check_corr_datas(self):
+        f = True
+        d = self.datas_dict
+        for key in d:
+            if d[key] == '':
+                f = False
+        self.datas_dict[Code] = self.code
+        self.datas_dict[Gender] = self.gender
+        self.datas_dict[Class] = self.clas
 
-        self.surname = self.ledit_lastname.text()
+        if self.code not in codes or self.gender == 0 or self.clas == 0:
+            f = False
 
-        if self.surname != funsions.check_surname(self.surname):
-            self.statusBar().showMessage(funsions.check_surname(self.surname))
-            return None
+        if not f:
+            self.statusBar().showMessage('Данные некорректны или не введены')
+        return f
 
-        self.name = self.ledit_name.text()
-
-        if self.name != funsions.check_name(self.name):
-            self.statusBar().showMessage(funsions.check_name(self.name))
-            return None
-
-        self.fathername = self.ledit_fathername.text()
-
-        if self.fathername != funsions.check_fathername(self.fathername):
-            self.statusBar().showMessage(funsions.check_fathername(self.fathername))
-            return None
-
-        self.password = self.ledit_password.text()
-
-        if self.password != funsions.check_pass(self.password):
-            self.statusBar().showMessage(funsions.check_pass(self.password))
-            return None
-
-        if self.code == '2':
-            self.clas = -1
-            self.btn_class.setText('админ')
-
-        if self.clas == 0:
-            self.statusBar().showMessage('Вы не выбрали класс')
-            return None
-
-        if self.gender == 0:
-            self.statusBar().showMessage('Вы не выбрали пол')
-            return None
-
-        con = sqlite3.connect('duty_db.sqlite')
-        cur = con.cursor()
-
-        # для проверки на одинаковый логин
-        result = cur.execute(
-            '''SELECT * FROM Users WHERE login=?''', (self.login,)
+    def check_unique_login(self):
+        result = self.cur.execute(
+            '''SELECT * FROM Users WHERE login=?''', (self.datas_dict[Login],)
         ).fetchone()
-
-        if result is None:
-            if self.clas != -1:
-                class_id = cur.execute(
-                    '''SELECT classId FROM Classes WHERE title = ?''', (self.clas,)
-                ).fetchone()[0]
-            else:
-                class_id = 25
-
-            loginTeacher = cur.execute(
-                '''SELECT loginTeacher FROM Classes WHERE classId = ?''', (class_id,)
-            ).fetchone()[0]
-
-
-            if not (self.code == '1' and loginTeacher != None):
-                cur.execute(
-                    '''INSERT INTO Users
-                    (surname,name, patronymic,status,classId,gender,password,login, desireSt)
-                     VALUES(?,?,?,?,?,?,?,?,?)''',
-                    (self.surname, self.name, self.fathername, self.code,
-                     class_id, self.gender, self.password, self.login, False,)
-                ).fetchall()
-                con.commit()
-
-                if self.code == '1':
-                    cur.execute(
-                        '''UPDATE Classes SET loginTeacher = ? WHERE classId = ?''', (self.login, class_id,)
-                    )
-
-                    con.commit()
-
-                con.close()
-                self.statusBar().showMessage('Вы успешно создали аккаунт')
-                self.close()
-            else:
-                self.statusBar().showMessage('Классный руководитель этого класса уже зарегистрирован')
-                con.close()
-        else:
+        if not (result is None):
             self.statusBar().showMessage('Пользователь с таким логином уже существует')
-            con.close()
+        return result is None
 
+    def get_class_id(self):
+        class_id = self.cur.execute(
+            '''SELECT classId FROM Classes WHERE title = ?''', (self.datas_dict[Class],)
+        ).fetchone()[0]
+        return class_id
+
+    def check_exist_class_teacher(self, class_id):
+        loginteacher = self.cur.execute(
+            '''SELECT loginTeacher FROM Classes WHERE classId = ?''', (class_id,)
+        ).fetchone()[0]
+
+        if self.datas_dict[Code] == '1' and loginteacher != None:
+            self.statusBar().showMessage('Этот класс уже имеет своего учителя')
+            return False
+        return True
+
+    def check_cod_and_class(self):
+        f = True
+        if self.datas_dict[Code] != admin_cod and self.datas_dict[Class] == no_class:
+            f = False
+        if self.datas_dict[Code] == admin_cod and self.datas_dict[Class] != no_class:
+            f = False
+        if not f:
+            self.statusBar().showMessage(
+                'У пользователя с таким кодом не может быть указан данный класс')
+        return f
+
+    def add_user(self):
+        d = self.datas_dict
+        self.cur.execute(
+            '''INSERT INTO Users
+            (surname,name, patronymic,status,classId,gender,password,login, desireSt, served)
+             VALUES(?,?,?,?,?,?,?,?,?,?)''',
+            (d[Surname], d[Name], d[Fathername], d[Code],
+             d[ClassId], d[Gender], d[Password], d[Login], base_desireSt, base_served)
+        ).fetchall()
+        self.con.commit()
+
+    def add_class_teacher(self):
+        if self.datas_dict[Code] == teacher_cod:
+            self.cur.execute('''UPDATE Classes SET loginTeacher = ? WHERE classId = ?''',
+                             (self.datas_dict[Login], self.datas_dict[ClassId],))
+            self.con.commit()
 
 
 def except_hook(cls, exception, traceback):

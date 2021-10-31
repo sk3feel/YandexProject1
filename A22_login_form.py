@@ -1,12 +1,7 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5 import uic
-from PyQt5.QtGui import QPixmap, QTransform
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog
-from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
+
 import sqlite3
 
 from A22_register_wig import Registr
@@ -15,6 +10,8 @@ from A22_teacher_form import Teacher_Form
 from A22_admin_form import Admin_Form
 
 LOGIN = ''
+password_index = 7
+code_index = 4
 
 class Log_In(QMainWindow):
     def __init__(self):
@@ -32,7 +29,6 @@ class Log_In(QMainWindow):
 
 
     def enter(self):
-        global LOGIN
         f_entre = False
         con = sqlite3.connect('duty_db.sqlite')
         cur = con.cursor()
@@ -44,18 +40,17 @@ class Log_In(QMainWindow):
         if result is None:
             self.statusBar().showMessage('Аккаунта с таким логином не существует')
         else:
-            if result[7] == password:
+            if result[password_index] == password:
                 f_entre = True
                 self.statusBar().showMessage('Вы успешно вошли')
             else:
                 self.statusBar().showMessage('Неверный пароль')
         if not f_entre:
             return f_entre
-        code = result[4]
-        LOGIN = login
-        self.student_wind = Student_Form()
-        self.teacher_wind = Teacher_Form()
-        self.admin_wind = Admin_Form()
+        code = result[code_index]
+        self.student_wind = Student_Form(login)
+        self.teacher_wind = Teacher_Form(login)
+        self.admin_wind = Admin_Form(login)
 
         if code == 0:
             self.student_wind.show()
