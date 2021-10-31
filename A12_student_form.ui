@@ -72,27 +72,6 @@
         <string>Дата:</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="rbtn_zayavka">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>120</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Подать заявку</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="ledit_day_month">
        <property name="geometry">
         <rect>
@@ -101,6 +80,14 @@
          <width>171</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
       </widget>
       <widget class="QLabel" name="label">
@@ -122,6 +109,66 @@
        </property>
        <property name="text">
         <string>Ближайшее предстоящее дежурство:</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_bid">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>120</y>
+         <width>161</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Подать заявку</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>230</y>
+         <width>181</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Результат:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="ledit_res">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>230</y>
+         <width>201</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
       </widget>
      </widget>
