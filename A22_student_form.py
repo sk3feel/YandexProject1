@@ -38,9 +38,7 @@ class Student_Form(QMainWindow):
     def results(self):
         self.ledit_res.setEnabled(False)
         classid = funsions.users_get_class_id(self.login)
-        result = self.cur.execute(
-            '''SELECT act FROM Users WHERE login=(SELECT loginTeacher FROM Classes WHERE classId = ?)''', (classid,)
-        ).fetchone()
+        result = funsions.get_teachers_act(classid)
         if funsions.get_users_info(self.login)[funsions.user_inx_act]:
             self.ledit_res.setText('Дежуришь')
         elif result:

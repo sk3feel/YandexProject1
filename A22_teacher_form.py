@@ -6,6 +6,7 @@ from PyQt5 import uic
 from PyQt5.QtGui import QPixmap, QTransform
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog
 from PyQt5.QtGui import QPainter, QColor
+from PyQt5.QtWidgets import QInputDialog
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 import sqlite3
 import funsions
@@ -24,6 +25,7 @@ class Teacher_Form(QMainWindow):
         self.btn_2nd_st.clicked.connect(self.pick_student)
         self.btn_3d_st.clicked.connect(self.pick_student)
         self.btn_end.clicked.connect(self.change_date)
+        self.make_array_of_studs()
         self.load_date()
         self.initUI()
 
@@ -41,6 +43,18 @@ class Teacher_Form(QMainWindow):
 
     def make_array_of_studs(self):
         pass
+    #     clas, self.ok_pressed = QInputDialog.getItem(
+    #         self, "Выберите класс", "Какой класс?",
+    #         (
+    #             'Крамин Карим, дежурил 4 раза', '10Б', '10В', '10Г', '10Д',
+    #             '11А', '11Б', '11В', '11Г', '11Д',
+    #             '9А', '9Б', '9В', '9Г', '9Д',
+    #             '8А', '8Б', '8В', '8Г', '8Д',
+    #             '7А', '7Б', '7В', '7Г'
+    #         ), 0, False)
+    #     if self.ok_pressed:
+    #         self.clas = clas
+    #         self.btn_pick_class.setText(clas)
 
 
     def pick_student(self):

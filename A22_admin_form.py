@@ -86,13 +86,7 @@ class Admin_Form(QMainWindow):
     def pick_class(self):
         clas, self.ok_pressed = QInputDialog.getItem(
             self, "Выберите класс", "Какой класс?",
-            (
-                '10А', '10Б', '10В', '10Г', '10Д',
-                '11А', '11Б', '11В', '11Г', '11Д',
-                '9А', '9Б', '9В', '9Г', '9Д',
-                '8А', '8Б', '8В', '8Г', '8Д',
-                '7А', '7Б', '7В', '7Г'
-            ), 0, False)
+            tuple(funsions.titles_of_classes), 0, False)
         if self.ok_pressed:
             self.clas = clas
             self.btn_pick_class.setText(clas)

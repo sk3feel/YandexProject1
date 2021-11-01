@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 
 import sqlite3
 from PyQt5.QtWidgets import QInputDialog
+import funsions
 
 Login = 'логин'
 Surname = 'фамилия'
@@ -55,13 +56,7 @@ class Registr(QMainWindow):
     def pick_class(self):
         clas, ok_pressed = QInputDialog.getItem(
             self, "Выберите ваш класс", "Какой класс?",
-            (
-                no_class, '7А', '7Б', '7В', '7Г',
-                '8А', '8Б', '8В', '8Г', '8Д',
-                '9А', '9Б', '9В', '9Г', '9Д',
-                '10А', '10Б', '10В', '10Г', '10Д',
-                '11А', '11Б', '11В', '11Г', '11Д'
-            ), 1, False)
+            tuple([no_class] + funsions.titles_of_classes), 1, False)
         if ok_pressed:
             self.clas = clas
             self.btn_class.setText(clas)
