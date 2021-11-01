@@ -37,10 +37,12 @@ class Log_In(QMainWindow):
         result = cur.execute(
             '''SELECT * FROM Users WHERE login=?''', (login,)
         ).fetchone()
+        print(result)
         if result is None:
             self.statusBar().showMessage('Аккаунта с таким логином не существует')
+            print('1')
         else:
-            if result[password_index] == password:
+            if str(result[password_index]) == str(password):
                 f_entre = True
                 self.statusBar().showMessage('Вы успешно вошли')
             else:
@@ -58,8 +60,6 @@ class Log_In(QMainWindow):
             self.teacher_wind.show()
         if code == 2:
             self.admin_wind.show()
-
-
 
 
 def except_hook(cls, exception, traceback):
