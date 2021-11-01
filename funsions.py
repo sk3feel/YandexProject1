@@ -1,5 +1,11 @@
 import sqlite3
 
+titles_of_classes = ['10А', '10Б', '10В', '10Г', '10Д',
+                     '11А', '11Б', '11В', '11Г', '11Д',
+                     '9А', '9Б', '9В', '9Г', '9Д',
+                     '8А', '8Б', '8В', '8Г', '8Д',
+                     '7А', '7Б', '7В', '7Г']
+
 user_inx_surname = 1
 user_inx_name = 2
 user_inx_fathername = 3
@@ -42,20 +48,17 @@ def get_class_title(classid):
     con.close()
     return result[0]
 
+
 def get_students(classid):
     con = sqlite3.connect('duty_db.sqlite')
     cur = con.cursor()
     result = cur.execute(
-        '''SELECT * FROM Users WHERE classId=?''', (classid,)
+        '''SELECT * FROM Users WHERE classId=? AND status=?''', (classid, 0,)
     ).fetchall()
     con.close()
-    res_arr = []
-    for i in result:
-        pass
-    return result
-
-
-print(get_students(1))
+    res_arr = sorted(result, key=lambda x: int(x[user_inx_served]))
+    res_arr = sorted(res_arr, key=lambda x: x[user_inx_desirest],reverse=True)
+    return res_arr
 
 
 
@@ -86,3 +89,14 @@ def get_near_day_of_duty(classid):
         return ' '.join([str(i) for i in res_arr[0]][::-1])
     return '-'
 
+
+def get_teachers_act(classid):
+    con = sqlite3.connect('duty_db.sqlite')
+    cur = con.cursor()
+    result = cur.execute(
+        '''SELECT act FROM Users WHERE login=(SELECT loginTeacher FROM Classes WHERE classId = ?)''', (classid,)
+    ).fetchone()
+    return result
+
+# def make_array_of_studs(classid):
+#
