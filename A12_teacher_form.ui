@@ -154,31 +154,6 @@
        </property>
       </widget>
      </widget>
-     <widget class="QTableWidget" name="tblwg_sur_name_n">
-      <property name="geometry">
-       <rect>
-        <x>360</x>
-        <y>250</y>
-        <width>311</width>
-        <height>281</height>
-       </rect>
-      </property>
-      <column>
-       <property name="text">
-        <string>Фамилия</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Имя</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Дежурил _ раз</string>
-       </property>
-      </column>
-     </widget>
      <widget class="QLabel" name="label_11">
       <property name="geometry">
        <rect>
@@ -200,32 +175,11 @@
        <string>Удтвердите трёх учеников на дежурство:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_12">
-      <property name="geometry">
-       <rect>
-        <x>360</x>
-        <y>220</y>
-        <width>271</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Futura LT</family>
-        <pointsize>11</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Ученики Вашего класса:</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_13">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>240</y>
+        <y>210</y>
         <width>91</width>
         <height>41</height>
        </rect>
@@ -246,7 +200,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>280</y>
+        <y>290</y>
         <width>91</width>
         <height>41</height>
        </rect>
@@ -267,7 +221,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>320</y>
+        <y>370</y>
         <width>91</width>
         <height>41</height>
        </rect>
@@ -284,11 +238,11 @@
        <string>Ученик 3</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_1st_st">
+     <widget class="QPushButton" name="btn_1_st">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>250</y>
+        <x>110</x>
+        <y>260</y>
         <width>151</width>
         <height>23</height>
        </rect>
@@ -304,11 +258,11 @@
        <string>Выбрать</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_3d_st">
+     <widget class="QPushButton" name="btn_3_st">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>330</y>
+        <x>110</x>
+        <y>420</y>
         <width>151</width>
         <height>23</height>
        </rect>
@@ -324,11 +278,11 @@
        <string>Выбрать</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_2nd_st">
+     <widget class="QPushButton" name="btn_2_st">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>290</y>
+        <x>110</x>
+        <y>340</y>
         <width>151</width>
         <height>23</height>
        </rect>
@@ -344,12 +298,66 @@
        <string>Выбрать</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_3d_st_2">
+     <widget class="QLineEdit" name="ledit_1st">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>110</x>
+        <y>220</y>
+        <width>481</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura LT</family>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="ledit_2st">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>300</y>
+        <width>481</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura LT</family>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="ledit_3st">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
         <y>380</y>
-        <width>211</width>
+        <width>481</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura LT</family>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_accept">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>470</y>
+        <width>251</width>
         <height>31</height>
        </rect>
       </property>
