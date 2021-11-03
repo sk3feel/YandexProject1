@@ -11,6 +11,10 @@ from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 import sqlite3
 import funsions
 
+from constants import *
+from function_bd import *
+from routine_functions import *
+
 no_duty = '-'
 
 class Teacher_Form(QMainWindow):
@@ -27,7 +31,7 @@ class Teacher_Form(QMainWindow):
         self.btn_end.clicked.connect(self.change_date)
         self.make_array_of_studs()
         self.load_date()
-        self.initUI()
+        self.load_info_about_user()
 
     # Страница 1: выбор дежурных
     def load_date(self):
@@ -67,12 +71,9 @@ class Teacher_Form(QMainWindow):
             pass
 
 
-
-
-
     # Страница 2: личные данные
-    def initUI(self):
-        result = funsions.get_users_info(self.login)
+    def load_info_about_user(self):
+        info_array = get_users_info_by_log(self.login)
         self.ledit_login.setEnabled(False)
         self.ledit_surname.setEnabled(False)
         self.ledit_name.setEnabled(False)
@@ -80,13 +81,13 @@ class Teacher_Form(QMainWindow):
         self.ledit_class.setEnabled(False)
         self.ledit_gender.setEnabled(False)
 
-        self.ledit_login.setText(result[funsions.user_inx_login])
-        self.ledit_surname.setText(result[funsions.user_inx_surname])
-        self.ledit_name.setText(result[funsions.user_inx_name])
-        self.ledit_fathername.setText(result[funsions.user_inx_fathername])
-        self.ledit_gender.setText(result[funsions.user_inx_gender])
-        classid = funsions.users_get_class_id(self.login)
-        self.ledit_class.setText(classid)
+        self.ledit_login.setText(info_array[us_inx_login])
+        self.ledit_surname.setText(info_array[us_inx_surname])
+        self.ledit_name.setText(info_array[us_inx_name])
+        self.ledit_fathername.setText(info_array[us_inx_fathername])
+        self.ledit_gender.setText(info_array[us_inx_gender])
+        class_title = get_class_title_by_log(self.login)
+        self.ledit_class.setText(class_title)
 
 
 def except_hook(cls, exception, traceback):
@@ -95,7 +96,7 @@ def except_hook(cls, exception, traceback):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Teacher_Form('MS')
+    ex = Teacher_Form('EKA')
     ex.show()
     sys.excepthook = except_hook
     sys.exit(app.exec_())

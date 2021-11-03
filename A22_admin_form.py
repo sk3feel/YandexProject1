@@ -11,15 +11,9 @@ from PyQt5.QtWidgets import QInputDialog
 import sqlite3
 import funsions
 
-inx_surname = 1
-inx_name = 2
-inx_fathername = 3
-inx_clas = 5
-inx_gender = 6
-inx_login = 8
-
-inx_date_dutys = 0
-inx_classID_dutys = 1
+from constants import *
+from function_bd import *
+from routine_functions import *
 
 
 class Admin_Form(QMainWindow):
@@ -27,7 +21,6 @@ class Admin_Form(QMainWindow):
         super().__init__()
         uic.loadUi('A12_admin_form.ui', self)
         self.setWindowTitle('DutyManager')
-        self.ok_pressed = False
         self.login = login
         self.con = sqlite3.connect('duty_db.sqlite')
         self.cur = self.con.cursor()
@@ -35,28 +28,33 @@ class Admin_Form(QMainWindow):
         self.btn_make_duty.clicked.connect(self.make_duty)
         self.btn_pick_class.clicked.connect(self.pick_class)
         self.btn_reload_bd.clicked.connect(self.reload_bd)
-        self.load_ledits()
+        self.load_all_ledits_btns()
         self.reload_bd()
-        self.initUI()
+        self.load_info_about_user()
 
-    # Страница 2: личные данные
-    def initUI(self):
-        result = funsions.get_users_info(self.login)
-        self.ledit_login.setEnabled(False)
-        self.ledit_surname.setEnabled(False)
-        self.ledit_name.setEnabled(False)
-        self.ledit_fathername.setEnabled(False)
-        self.ledit_gender.setEnabled(False)
-
-        self.ledit_login.setText(result[funsions.user_inx_login])
-        self.ledit_surname.setText(result[funsions.user_inx_surname])
-        self.ledit_name.setText(result[funsions.user_inx_name])
-        self.ledit_fathername.setText(result[funsions.user_inx_fathername])
-        self.ledit_gender.setText(result[funsions.user_inx_gender])
+        self.self_date_in_db = None
+        self.date_and_classid = None
+        self.date = None
+        self.clas = None
+        self.date_and_classid = get_db_dutys()
 
     # Страница 1: выбор дежурных классов
 
-    def load_ledits(self):
+    def make_duty(self):
+        if self.date is None:
+            self.statusBar().showMessage('Сначала нужно выбрать день')
+        elif self.clas is None:
+            self.statusBar().showMessage('Сначала нужно выбрать класс')
+        else:
+            self.reload_self_date_in_db()
+            if self.self_date_in_db is True:
+                self.change_class()
+            elif self.self_date_in_db is False:
+                self.put_class()
+
+
+
+    def load_all_ledits_btns(self):
         self.date = None
         self.clas = None
         self.ledit_date.setEnabled(False)
@@ -65,29 +63,37 @@ class Admin_Form(QMainWindow):
         self.ledit_date.setText('---')
 
     def reload_bd(self):
-        self.date_and_classid = self.cur.execute(
-            '''SELECT * FROM Dutys'''
-        ).fetchall()
+        self.date_and_classid = get_db_dutys()
+
+    def reload_self_date_in_db(self):
+        # self.reload_bd()
+        if self.date is not None:
+            self.self_date_in_db = is_duty_in_date(self.date, self.date_and_classid)
+            return self.self_date_in_db
+        else:
+            return None
 
     def change_day_calendar(self):
+        # self.reload_bd()
         dateselected = self.calendar.selectedDate()
         date_in_string = str(dateselected.toPyDate()).split('-')[::-1]
         self.date = ' '.join(date_in_string)
         self.ledit_date.setText(self.date)
 
-        self.date_in_db = any(list(map(lambda x: self.date in x, self.date_and_classid)))
-        if self.date_in_db:
-            for i in self.date_and_classid:
-                if self.date in i:
-                    self.ledit_class.setText(funsions.get_class_title(i[inx_classID_dutys]))
+        # обновление переменной self.self_date_in_db
+        self.reload_self_date_in_db()
+
+        # если дата в базе данных, вывести класс в ledit, в противно случае -
+        if self.self_date_in_db:
+            self.ledit_class.setText(d_get_class_title_by_date(self.date))
         else:
             self.ledit_class.setText('-')
 
     def pick_class(self):
-        clas, self.ok_pressed = QInputDialog.getItem(
+        clas, ok_pressed = QInputDialog.getItem(
             self, "Выберите класс", "Какой класс?",
             tuple(funsions.titles_of_classes), 0, False)
-        if self.ok_pressed:
+        if ok_pressed:
             self.clas = clas
             self.btn_pick_class.setText(clas)
 
@@ -97,30 +103,26 @@ class Admin_Form(QMainWindow):
         self.btn_pick_class.setText('Выбрать класс')
 
     def change_class(self):
-        self.cur.execute('''
-        UPDATE Dutys SET classId=? WHERE date = ?''', (funsions.get_class_id(self.clas), self.date,))
-        self.con.commit()
-
-    def put_class(self):
-        self.cur.execute(
-            '''INSERT INTO Dutys
-            (date, classId, passed)
-             VALUES(?,?,?)''',
-            (self.date, funsions.get_class_id(self.clas), False,)
-        ).fetchall()
-        self.con.commit()
+        change_class_in_date(get_class_id_by_class_title(self.clas), self.date, base_date_status)
         self.discard()
 
-    def make_duty(self):
-        if self.date is None:
-            self.statusBar().showMessage('Сначала нужно выбрать день')
-        elif not self.ok_pressed:
-            self.statusBar().showMessage('Сначала нужно выбрать класс')
-        else:
-            if self.date_in_db:
-                self.change_class()
-            else:
-                self.put_class()
+    def put_class(self):
+        put_class_in_date(self.date, get_class_id_by_class_title(self.clas), base_date_status)
+        self.discard()
+
+    # Страница 2: личные данные
+    def load_info_about_user(self):
+        info_array = get_users_info_by_log(self.login)
+        self.ledit_login.setEnabled(False)
+        self.ledit_surname.setEnabled(False)
+        self.ledit_name.setEnabled(False)
+        self.ledit_fathername.setEnabled(False)
+        self.ledit_gender.setEnabled(False)
+        self.ledit_login.setText(info_array[us_inx_login])
+        self.ledit_surname.setText(info_array[us_inx_surname])
+        self.ledit_name.setText(info_array[us_inx_name])
+        self.ledit_fathername.setText(info_array[us_inx_fathername])
+        self.ledit_gender.setText(info_array[us_inx_gender])
 
     # Страница 3: утвержденные дежурства
 
