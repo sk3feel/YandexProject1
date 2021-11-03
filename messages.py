@@ -22,3 +22,4 @@ EMPTYNESS = '-'
 PICK_CLASS = "Выберите класс"
 TO_PICK_CLASS = 'Выбрать класс'
 NO_STATED_DUTYS = 'Нет утвержденных дежурств'
+PICK_STUDENT = 'Выберите ученика'
