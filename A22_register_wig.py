@@ -5,10 +5,13 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 from PyQt5.QtWidgets import QInputDialog
-from function_bd import *
+from constants import *
 from routine_functions import *
 
 from messages import *
+
+from base_db_functions import *
+
 
 class Registr(QMainWindow):
     def __init__(self):
@@ -18,15 +21,15 @@ class Registr(QMainWindow):
         self.btn_create_account.clicked.connect(self.create_account)
         self.btn_class.clicked.connect(self.pick_class)
         self.btn_sex.clicked.connect(self.pick_sex)
-        self.clas, self.gender = '', ''
+        self.clas, self.gender = EMPTY_LINE, EMPTY_LINE
 
     # Создание аккаунта и далее необходимые для этого функции
     def create_account(self):
         self.load_data()
         if self.check_corr_datas():
             self.load_class_id_to_dict()
-            if self.is_login_unique(self.datas_dict[Login]):
-                if self.check_exist_class_teacher(self.datas_dict[ClassId]):
+            if self.is_login_unique():
+                if self.check_exist_class_teacher():
                     if self.check_cod_and_class():
                         self.add_user()
                         self.add_class_teacher_if_code_1()
@@ -52,17 +55,22 @@ class Registr(QMainWindow):
         return False
 
     def load_class_id_to_dict(self):
-        class_id = get_class_id_by_class_title(self.datas_dict[Class])
+        title = self.datas_dict[Class]
+        class_id = select_one_with_aspect(CLASSES, TITLE, title, CLASS_ID)[0]
         self.datas_dict[ClassId] = class_id
 
-    def is_login_unique(self, login):
-        if us_is_login_unique(login):
+    def is_login_unique(self):
+        login = self.datas_dict[Login]
+        account = select_one_with_aspect(USERS, LOGIN, login, *TABLES[USERS])
+        if account is None:
             return True
         self.statusBar().showMessage(LOGIN_EXIST)
         return False
 
-    def check_exist_class_teacher(self, class_id):
-        if self.datas_dict[Code] == teacher_cod and cl_is_exist_teacher(class_id):
+    def check_exist_class_teacher(self):
+        class_id = self.datas_dict[ClassId]
+        class_teacher = select_one_with_aspect(CLASSES, CLASS_ID, class_id, LOGIN_TEACHER)[0]
+        if self.datas_dict[Code] == teacher_cod and class_teacher is not None:
             self.statusBar().showMessage(CLASS_HAVE_TEACHER)
             return False
         return True
@@ -70,21 +78,24 @@ class Registr(QMainWindow):
     def check_cod_and_class(self):
         if code_and_class_can_exist(self.datas_dict[Code], self.datas_dict[Class]):
             return True
-        self.statusBar().showMessage(
-            COD_NOT_FIT_TO_CLASS)
+        self.statusBar().showMessage(COD_NOT_FIT_TO_CLASS)
         return False
 
     def add_user(self):
         d = self.datas_dict
-        us_add_user(d[Surname], d[Name], d[Fathername], d[Code],
-                    d[ClassId], d[Gender], d[Password], d[Login])
+        insert_for_users(
+            d[Surname], d[Name], d[Fathername], d[Code],
+            d[ClassId], d[Gender], d[Password], d[Login], base_desireSt, base_served
+        )
+
         self.statusBar().showMessage(ACCOUNT_CREATED)
 
     def add_class_teacher_if_code_1(self):
+        login = self.datas_dict[Login]
+        class_id = self.datas_dict[ClassId]
         if self.datas_dict[Code] == teacher_cod:
-            cl_add_class_teacher_login(self.datas_dict[Login], self.datas_dict[ClassId])
+            update_aspect(CLASSES, LOGIN_TEACHER, login, CLASS_ID, class_id)
 
-    # Выбор класса
     def pick_class(self):
         clas, ok_pressed = QInputDialog.getItem(
             self, PICK_YOUR_CLASS, WHICH_CLASS,
@@ -93,7 +104,6 @@ class Registr(QMainWindow):
             self.btn_class.setText(clas)
             self.clas = clas
 
-    # Выбор пола
     def pick_sex(self):
         gender, ok_pressed = QInputDialog.getItem(
             self, PICK_YOUR_GENDER, WHICH_GENDER,
