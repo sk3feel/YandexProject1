@@ -6,6 +6,7 @@ titles_of_classes = ['10А', '10Б', '10В', '10Г', '10Д',
                      '8А', '8Б', '8В', '8Г', '8Д',
                      '7А', '7Б', '7В', '7Г']
 
+
 user_inx_surname = 1
 user_inx_name = 2
 user_inx_fathername = 3
