@@ -25,6 +25,12 @@ def get_class_id_by_class_title(class_title):
     ).fetchone()[0]
     return class_id
 
+def us_get_class_id_by_class_title(class_title):
+    class_id = cur.execute(
+        '''SELECT classId FROM Classes WHERE title = ?''', (class_title,)
+    ).fetchone()[0]
+    return class_id
+
 
 
 def us_is_login_unique(login):
@@ -57,7 +63,6 @@ def cl_add_class_teacher_login(login, class_id):
     cur.execute('''UPDATE Classes SET loginTeacher = ? WHERE classId = ?''',
                 (login, class_id,))
     con.commit()
-
 
 def is_login_exist(login):
     result = cur.execute(
@@ -140,4 +145,3 @@ def d_get_class_title_by_date(date):
     ).fetchall()[0][0]
     class_title = get_class_title_by_class_id(result)
     return class_title
-
