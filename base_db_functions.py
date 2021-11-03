@@ -1,0 +1,51 @@
+import sqlite3
+from constants import *
+
+con = sqlite3.connect('duty_db.sqlite')
+cur = con.cursor()
+
+
+def select_table(table_name, *fields):
+    value = f"""SELECT {', '.join(fields)} FROM {table_name}"""
+    return cur.execute(value).fetchall()
+
+
+def select_one_with_aspect(table_name, field, field_value, *fields):
+    value = f"""SELECT {', '.join(fields)} FROM {table_name} WHERE {field}=?"""
+    return cur.execute(value, (field_value,)).fetchone()
+
+
+def select_all_with_aspect(table_name, field, field_value, *fields):
+    value = f"""SELECT {', '.join(fields)} FROM {table_name} WHERE {field}=?"""
+    return cur.execute(value, (field_value,)).fetchall()
+
+
+def insert(table_name, *values):
+    parametrs = values[:int(len(values))]
+    value_parametrs = values[int(len(values)):]
+    value = f'''INSERT INTO {table_name} ({', '.join(parametrs)}) 
+    VALUES({', '.join(value_parametrs)})'''
+    cur.execute(value).fetchall()
+    con.commit()
+
+
+def insert_for_users(*values):
+    cur.execute(
+        '''INSERT INTO Users
+        (surname,name, patronymic,status,classId,gender,password,login, desireSt, served)
+         VALUES(?,?,?,?,?,?,?,?,?,?)''', values).fetchall()
+    con.commit()
+
+
+def insert_for_dutys(*values):
+    cur.execute(
+        '''INSERT INTO Dutys
+        (date,classId,passed)
+         VALUES(?,?,?)''', values).fetchall()
+    con.commit()
+
+
+def update_aspect(table_name, field, value_field, parametr, value_parametr):
+    value = f'''UPDATE {table_name} SET {field}=? WHERE {parametr} = ?'''
+    cur.execute(value, (value_field, value_parametr,))
+    con.commit()
