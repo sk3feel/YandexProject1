@@ -32,19 +32,22 @@ def get_class_title_by_log(login):
     return get_class_title_by_class_id(result[us_inx_classid])
 
 
-def get_near_day_of_duty(classid):
-    arr = get_days_of_duty(classid)
+def get_near_day_of_duty(arr):
     arr = [i[0] for i in arr]
     res_arr = []
     if arr:
         for i in arr:
             i = [int(j) for j in i.split()][::-1]
+            print(i)
             res_arr.append(i)
         res_arr.sort()
         return ' '.join([str(i) for i in res_arr[0]][::-1])
     return '-'
 
-print(get_near_day_of_duty(1))
+
 
 def is_duty_in_date(date, date_and_classid):
     return any(list(map(lambda x: date in x, date_and_classid)))
+
+
+
