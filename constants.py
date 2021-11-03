@@ -8,6 +8,7 @@ Gender = 'гендер'
 Class = 'класс'
 ClassId = 'классId'
 base_desireSt = False
+bid_desireSt = True
 base_served = 0
 codes = ['0', '1', '2']
 
@@ -66,8 +67,10 @@ LOGIN_TEACHER = 'loginTeacher'
 BAD_DAYS = 'baddays'
 
 TABLES = {
-    USERS: (USER_ID, SURNAME, NAME, FATHERNAME, STATUS, CLASS_ID,
-            GENDER, PASSWORD, LOGIN, DESIRE_ST, SERVER, ACT),
-    DUTYS: (DATE, CLASS_ID, PASSED),
-    CLASSES: (CLASS_ID, TITLE, LOGIN_TEACHER, BAD_DAYS)
+    USERS: [USER_ID, SURNAME, NAME, FATHERNAME, STATUS, CLASS_ID,
+            GENDER, PASSWORD, LOGIN, DESIRE_ST, SERVER, ACT],
+    DUTYS: [DATE, CLASS_ID, PASSED],
+    CLASSES: [CLASS_ID, TITLE, LOGIN_TEACHER, BAD_DAYS]
 }
+
+
