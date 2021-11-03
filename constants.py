@@ -8,6 +8,7 @@ Gender = 'гендер'
 Class = 'класс'
 ClassId = 'классId'
 base_desireSt = False
+not_base_desireSt = True
 bid_desireSt = True
 base_served = 0
 codes = ['0', '1', '2']
@@ -37,6 +38,10 @@ d_inx_date = 0
 d_inx_class_id = 1
 
 base_date_status = False
+not_base_date_status = True
+
+base_act = False
+not_base_act = True
 
 titles_of_classes = ['10А', '10Б', '10В', '10Г', '10Д',
                      '11А', '11Б', '11В', '11Г', '11Д',
@@ -58,7 +63,7 @@ GENDER = 'gender'
 PASSWORD = 'password'
 LOGIN = 'login'
 DESIRE_ST = 'desireSt'
-SERVER = 'served'
+SERVED = 'served'
 ACT = 'act'
 DATE = 'date'
 PASSED = 'passed'
@@ -68,7 +73,7 @@ BAD_DAYS = 'baddays'
 
 TABLES = {
     USERS: [USER_ID, SURNAME, NAME, FATHERNAME, STATUS, CLASS_ID,
-            GENDER, PASSWORD, LOGIN, DESIRE_ST, SERVER, ACT],
+            GENDER, PASSWORD, LOGIN, DESIRE_ST, SERVED, ACT],
     DUTYS: [DATE, CLASS_ID, PASSED],
     CLASSES: [CLASS_ID, TITLE, LOGIN_TEACHER, BAD_DAYS]
 }
