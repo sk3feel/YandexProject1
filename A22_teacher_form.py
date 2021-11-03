@@ -91,10 +91,10 @@ class Teacher_Form(QMainWindow):
             self.duty_positions[first_st] = act_students[0][login_inx]
             self.ledit_1st.setText(line_act_students[0])
         if n_studens >= two_studens:
-            self.duty_duty_positions[sec_st] = act_students[1][login_inx]
+            self.duty_positions[sec_st] = act_students[1][login_inx]
             self.ledit_2st.setText(line_act_students[1])
         if n_studens == three_studens:
-            self.duty_duty_positions[third_st] = act_students[2][login_inx]
+            self.duty_positions[third_st] = act_students[2][login_inx]
             self.ledit_3st.setText(line_act_students[2])
 
     def pick_student(self):
