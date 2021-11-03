@@ -7,10 +7,12 @@ from A22_student_form import Student_Form
 from A22_teacher_form import Teacher_Form
 from A22_admin_form import Admin_Form
 
-from function_bd import *
 from constants import *
 
 from messages import *
+
+from base_db_functions import *
+
 
 class Log_In(QMainWindow):
     def __init__(self):
@@ -29,20 +31,15 @@ class Log_In(QMainWindow):
         login = self.ledit_login.text()
         password = self.ledit_password.text()
 
-        if is_login_exist(login):
-            if corr_password(login, password):
-                status_code = get_users_info_by_log(login)[us_inx_code]
-                self.open_duty_manager(login, status_code)
+        password_and_status = select_one_with_aspect(USERS, LOGIN, login, PASSWORD, STATUS)
+        if password_and_status is not None:
+            db_password, db_status = password_and_status
+            if password == str(db_password):
+                self.open_duty_manager(login, db_status)
             else:
                 self.error_wrong_pass()
         else:
             self.error_login_dont_exist()
-
-    def error_login_dont_exist(self):
-        self.statusBar().showMessage(LOGIN_ISNT_EXIST)
-
-    def error_wrong_pass(self):
-        self.statusBar().showMessage(WRONG_PASS)
 
     def open_duty_manager(self, login, status_code):
         if status_code == int_student_cod:
@@ -54,6 +51,12 @@ class Log_In(QMainWindow):
         elif status_code == int_admin_cod:
             self.admin_wind = Admin_Form(login)
             self.admin_wind.show()
+
+    def error_login_dont_exist(self):
+        self.statusBar().showMessage(LOGIN_ISNT_EXIST)
+
+    def error_wrong_pass(self):
+        self.statusBar().showMessage(WRONG_PASS)
 
 
 def except_hook(cls, exception, traceback):
