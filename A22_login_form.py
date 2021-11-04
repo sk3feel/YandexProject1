@@ -1,16 +1,15 @@
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
-
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QLabel
+from PIL import Image
 from A22_register_wig import Registr
 from A22_student_form import Student_Form
 from A22_teacher_form import Teacher_Form
 from A22_admin_form import Admin_Form
 
-from constants import *
-
 from messages import *
-
 from base_db_functions import *
 
 
@@ -18,11 +17,26 @@ class Log_In(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('A12_login_form.ui', self)
-
         self.setWindowTitle(DUTY_MANAGER)
+
+        self.image, self.student_wind, self.teacher_wind, self.admin_wind, self.pixmap = \
+            UNDEFINED, UNDEFINED, UNDEFINED, UNDEFINED, UNDEFINED
+
+        self.load_pict()
+
         self.btn_register.clicked.connect(self.registration)
         self.btn_enter.clicked.connect(self.enter)
         self.reg_wind = Registr()
+
+    def load_pict(self):
+        im = Image.open(IMAGE)
+        im2 = im.resize(NEW_SIZE_IMAGE)
+        im2.save(NEW_IMAGE)
+        self.pixmap = QPixmap(NEW_IMAGE)
+        self.image = QLabel(self)
+        self.image.move(*IMAGE_POSITION)
+        self.image.resize(*NEW_SIZE_IMAGE)
+        self.image.setPixmap(self.pixmap)
 
     def registration(self):
         self.reg_wind.show()
@@ -54,8 +68,6 @@ class Log_In(QMainWindow):
 
     def error_login_dont_exist(self):
         self.statusBar().showMessage(LOGIN_ISNT_EXIST)
-
-
 
     def error_wrong_pass(self):
         self.statusBar().showMessage(WRONG_PASS)

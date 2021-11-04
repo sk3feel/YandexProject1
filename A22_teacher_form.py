@@ -16,7 +16,6 @@ from base_db_functions import *
 
 login_inx = 3
 login_inx_in_line = -1
-served_inx = 2
 
 one_studens = 1
 two_studens = 2
@@ -33,21 +32,27 @@ class Teacher_Form(QMainWindow):
         uic.loadUi('A12_teacher_form.ui', self)
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
-        self.duty_positions = {
-            first_st: '',
-            sec_st: '',
-            third_st: ''
-        }
+        # Страница 1: выбор дежурных
+        self.duty_positions = {first_st: '', sec_st: '', third_st: ''}
+        self.connnect_buttons()
+        self.load_date_of_near_duty()
+        self.get_arr_of_want_studs()
+        self.load_free_ledits()
+        self.show_act_students()
+        # Страница 2: личные данные
+        self.load_info_about_user()
+        # Страница 3: Неудобные дни
+        self.load_badday()
+        self.btn_pick_bad_day.clicked.connect(self.pick_badday)
+        # Страница 4: утвержденные дежурства
+        self.load_approved_dutys()
+
+    def connnect_buttons(self):
         self.btn_1_st.clicked.connect(self.pick_student)
         self.btn_2_st.clicked.connect(self.pick_student)
         self.btn_3_st.clicked.connect(self.pick_student)
         self.btn_accept.clicked.connect(self.accept)
         self.btn_end.clicked.connect(self.change_date)
-        self.load_date_of_near_duty()
-        self.get_arr_of_want_studs()
-        self.load_free_ledits()
-        self.show_act_students()
-        self.load_info_about_user()
 
     # Страница 1: выбор дежурных
     def load_date_of_near_duty(self):
@@ -55,8 +60,11 @@ class Teacher_Form(QMainWindow):
         self.classid = select_one_with_aspect(USERS, LOGIN, self.login, CLASS_ID)[0]
         all_duty_days = select_all_with_two_aspects \
             (DUTYS, CLASS_ID, self.classid, PASSED, base_date_status, DATE)
-        self.near_duty_day = get_near_day_of_duty(all_duty_days)
-        self.ledit_day_month.setText(self.near_duty_day)
+        if all_duty_days:
+            self.near_duty_day = get_near_day_of_duty(all_duty_days)
+            self.ledit_day_month.setText(self.near_duty_day)
+        else:
+            self.ledit_day_month.setText('-')
 
     def check_duty_on_empty(self):
         if self.near_duty_day == EMPTYNESS:
@@ -69,8 +77,8 @@ class Teacher_Form(QMainWindow):
             USERS, CLASS_ID, self.classid, STATUS, int_student_cod,
             SURNAME, NAME, SERVED, DESIRE_ST, LOGIN)
         array_of_students = sort_studends_by_dutys(array_of_students)
-        array_wanna_studs = get_students_lines(array_of_students)
-        self.array_wanna_studs = array_wanna_studs
+        array_studs = get_students_lines(array_of_students)
+        self.array_of_studs = array_studs
 
     def load_free_ledits(self):
         self.ledit_1st.setEnabled(False)
@@ -100,7 +108,7 @@ class Teacher_Form(QMainWindow):
     def pick_student(self):
         line, ok_pressed = QInputDialog.getItem(
             self, PICK_STUDENT, WHICH_CLASS,
-            tuple(self.array_wanna_studs), 0, False)
+            tuple(self.array_of_studs), 0, False)
         if ok_pressed:
             login = line.split()[login_inx_in_line]
             if self.sender() == self.btn_1_st:
@@ -116,7 +124,11 @@ class Teacher_Form(QMainWindow):
                 self.duty_positions[third_st] = login
 
     def accept(self):
-        update_aspect(USERS, ACT, base_act, LOGIN, self.login)
+        update_aspect(USERS, ACT, not_base_act, LOGIN, self.login)
+        for key in self.duty_positions:
+            login = self.duty_positions[key]
+            if login != '':
+                update_aspect(USERS, ACT, not_base_act, LOGIN, login)
 
     def change_date(self):
         if self.check_duty_on_empty():
@@ -124,7 +136,7 @@ class Teacher_Form(QMainWindow):
             for key in d:
                 login = d[key]
                 if login != '':
-                    discard_desire = update_aspect(USERS, DESIRE_ST, base_desireSt, LOGIN, login)
+                    update_aspect(USERS, DESIRE_ST, base_desireSt, LOGIN, login)
                     self.updates_and_discards(login)
             self.updates_and_discards(self.login)
             self.pass_day()
@@ -135,8 +147,8 @@ class Teacher_Form(QMainWindow):
     # Сброс параметра act, served(количество дежурств) +=1
     def updates_and_discards(self, login):
         last_served = select_one_with_aspect(USERS, LOGIN, login, SERVED)[0]
-        update_served = update_aspect(USERS, SERVED, last_served + 1, LOGIN, login)
-        update_act = update_aspect(USERS, ACT, base_act, LOGIN, login)
+        update_aspect(USERS, SERVED, last_served + 1, LOGIN, login)
+        update_aspect(USERS, ACT, base_act, LOGIN, login)
 
     def discard_positions(self):
         self.duty_positions = {
@@ -166,6 +178,34 @@ class Teacher_Form(QMainWindow):
         self.ledit_gender.setText(str(info_array[us_inx_gender]))
         class_title = select_one_with_aspect(CLASSES, CLASS_ID, self.classid, TITLE)[0]
         self.ledit_class.setText(str(class_title))
+
+    # Страница 3: Неудобные дни
+    def load_badday(self):
+        badday = select_one_with_aspect(CLASSES, LOGIN_TEACHER, self.login, BAD_DAYS)[0]
+        if badday:
+            self.btn_pick_bad_day.setText(badday)
+        else:
+            pass
+
+    def pick_badday(self):
+        badday, ok_pressed = QInputDialog.getItem(
+            self, PICK_BADDAY, WHICH_DAY,
+            tuple(title_of_baddays), 0, False)
+        if ok_pressed:
+            self.btn_pick_bad_day.setText(badday)
+            update_aspect(CLASSES, BAD_DAYS, badday, LOGIN_TEACHER, self.login)
+
+    # Страница 4: утвержденные дежурства
+    def load_approved_dutys(self):
+        dates = sort_days(select_table(DUTYS, DATE))
+        self.tablewdt_dutys.setRowCount(len(dates))
+        tablerow = 0
+        for date in dates:
+            class_id = select_one_with_aspect(DUTYS, DATE, date, CLASS_ID)[0]
+            class_title = select_one_with_aspect(CLASSES, CLASS_ID, class_id, TITLE)[0]
+            self.tablewdt_dutys.setItem(tablerow, 0, QtWidgets.QTableWidgetItem(date))
+            self.tablewdt_dutys.setItem(tablerow, 1, QtWidgets.QTableWidgetItem(class_title))
+            tablerow += 1
 
 
 def except_hook(cls, exception, traceback):
