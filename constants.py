@@ -90,3 +90,8 @@ NEW_IMAGE = '../YandexProject1/new_pict.png'
 
 UNDEFINED = None
 
+LOGIN_UI_FILE = '../YandexProject1/Designs/A12_login_form.ui'
+REGISTRATION_UI_FILE = '../YandexProject1/Designs/A12_register_widget.ui'
+STUDENT_UI_FILE = '../YandexProject1/Designs/A12_student_form.ui'
+TEACHER_UI_FILE = '../YandexProject1/Designs/A12_teacher_form.ui'
+ADMIN_UI_FILE = '../YandexProject1/Designs/A12_admin_form.ui'
