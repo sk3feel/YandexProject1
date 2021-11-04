@@ -12,6 +12,7 @@ not_base_desireSt = True
 bid_desireSt = True
 base_served = 0
 codes = ['0', '1', '2']
+no_login_teacher = ''
 
 student_cod = '0'
 teacher_cod = '1'
@@ -49,6 +50,10 @@ titles_of_classes = ['10А', '10Б', '10В', '10Г', '10Д',
                      '8А', '8Б', '8В', '8Г', '8Д',
                      '7А', '7Б', '7В', '7Г']
 
+title_of_baddays = [
+    'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'
+]
+
 USERS = 'Users'
 DUTYS = 'Dutys'
 CLASSES = 'Classes'
@@ -78,4 +83,10 @@ TABLES = {
     CLASSES: [CLASS_ID, TITLE, LOGIN_TEACHER, BAD_DAYS]
 }
 
+NEW_SIZE_IMAGE = [100, 100]
+IMAGE_POSITION = [25, 52]
+IMAGE = '../YandexProject1/pict.png'
+NEW_IMAGE = '../YandexProject1/new_pict.png'
+
+UNDEFINED = None
 

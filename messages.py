@@ -23,3 +23,9 @@ PICK_CLASS = "Выберите класс"
 TO_PICK_CLASS = 'Выбрать класс'
 NO_STATED_DUTYS = 'Нет утвержденных дежурств'
 PICK_STUDENT = 'Выберите ученика'
+PICK_BADDAY = 'Выберите неудобный день'
+WHICH_DAY = 'Какой день'
+
+
+
+NAME_TXT_FILE = 'frases.txt'
