@@ -18,7 +18,7 @@ from base_db_functions import *
 class Student_Form(QMainWindow):
     def __init__(self, login):
         super().__init__()
-        uic.loadUi('A12_student_form.ui', self)
+        uic.loadUi(STUDENT_UI_FILE, self)
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
         # Страница 1: подача заявки

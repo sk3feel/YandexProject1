@@ -16,7 +16,7 @@ from base_db_functions import *
 class Log_In(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('A12_login_form.ui', self)
+        uic.loadUi(LOGIN_UI_FILE, self)
         self.setWindowTitle(DUTY_MANAGER)
 
         self.image, self.student_wind, self.teacher_wind, self.admin_wind, self.pixmap = \

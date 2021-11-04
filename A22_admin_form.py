@@ -18,7 +18,7 @@ from base_db_functions import *
 class Admin_Form(QMainWindow):
     def __init__(self, login):
         super().__init__()
-        uic.loadUi('A12_admin_form.ui', self)
+        uic.loadUi(ADMIN_UI_FILE, self)
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
         # Страница 1: выбор дежурных классов

@@ -29,7 +29,7 @@ third_st = 'third'
 class Teacher_Form(QMainWindow):
     def __init__(self, login):
         super().__init__()
-        uic.loadUi('A12_teacher_form.ui', self)
+        uic.loadUi(TEACHER_UI_FILE, self)
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
         # Страница 1: выбор дежурных
