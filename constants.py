@@ -85,13 +85,13 @@ TABLES = {
 
 NEW_SIZE_IMAGE = [100, 100]
 IMAGE_POSITION = [25, 52]
-IMAGE = '../YandexProject1/pict.png'
-NEW_IMAGE = '../YandexProject1/new_pict.png'
+IMAGE = 'pict.png'
+NEW_IMAGE = 'new_pict.png'
 
 UNDEFINED = None
 
-LOGIN_UI_FILE = '../YandexProject1/Designs/A12_login_form.ui'
-REGISTRATION_UI_FILE = '../YandexProject1/Designs/A12_register_widget.ui'
-STUDENT_UI_FILE = '../YandexProject1/Designs/A12_student_form.ui'
-TEACHER_UI_FILE = '../YandexProject1/Designs/A12_teacher_form.ui'
-ADMIN_UI_FILE = '../YandexProject1/Designs/A12_admin_form.ui'
+LOGIN_UI_FILE = 'A12_login_form.ui'
+REGISTRATION_UI_FILE = 'A12_register_widget.ui'
+STUDENT_UI_FILE = 'A12_student_form.ui'
+TEACHER_UI_FILE = 'A12_teacher_form.ui'
+ADMIN_UI_FILE = 'A12_admin_form.ui'
