@@ -77,136 +77,26 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>170</y>
-        <width>361</width>
-        <height>271</height>
+        <y>130</y>
+        <width>321</width>
+        <height>311</height>
        </rect>
       </property>
      </widget>
      <widget class="QTableWidget" name="tblwg_n_baddays">
       <property name="geometry">
        <rect>
-        <x>450</x>
+        <x>380</x>
         <y>130</y>
-        <width>251</width>
-        <height>311</height>
+        <width>321</width>
+        <height>321</height>
        </rect>
       </property>
-      <row>
+      <column>
        <property name="text">
-        <string>10А</string>
+        <string>Класс</string>
        </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>10Б</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>10В</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>10Г</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>10Д</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>11А</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>11Б</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>11В</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>11Г</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>11Д</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>9A</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>9Б</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>9В</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>9Г</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>9Д</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>8А</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>8Б</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>8В</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>8Д</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>7А</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>7Б</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>7В</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>7Г</string>
-       </property>
-      </row>
+      </column>
       <column>
        <property name="text">
         <string>Кол-во дежурств</string>
@@ -214,7 +104,7 @@
       </column>
       <column>
        <property name="text">
-        <string>Неудобные дни</string>
+        <string>Неудобный день</string>
        </property>
       </column>
      </widget>
@@ -338,27 +228,6 @@
        <string>Выбрать класс</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_reload_bd">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>120</y>
-        <width>211</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Futura LT</family>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Обновить базу данных</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -457,6 +326,13 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
       </widget>
       <widget class="QLineEdit" name="ledit_surname">
        <property name="geometry">
@@ -466,6 +342,13 @@
          <width>221</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
       </widget>
       <widget class="QLabel" name="label_7">
@@ -519,6 +402,13 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
       </widget>
       <widget class="QLabel" name="label_9">
        <property name="geometry">
@@ -541,27 +431,6 @@
         <string>Отчество:</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_4">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>316</y>
-         <width>111</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Пароль:</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="ledit_gender">
        <property name="geometry">
         <rect>
@@ -571,47 +440,12 @@
          <height>20</height>
         </rect>
        </property>
-      </widget>
-      <widget class="QPushButton" name="btn_change_gender">
-       <property name="geometry">
-        <rect>
-         <x>270</x>
-         <y>280</y>
-         <width>221</width>
-         <height>21</height>
-        </rect>
-       </property>
        <property name="font">
         <font>
          <family>Futura LT</family>
-         <pointsize>9</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
-       </property>
-       <property name="text">
-        <string>Изменить пол</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btn_change_password">
-       <property name="geometry">
-        <rect>
-         <x>270</x>
-         <y>320</y>
-         <width>221</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Изменить пароль</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="ledit_fathername">
@@ -623,6 +457,13 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
       </widget>
      </widget>
     </widget>
@@ -630,30 +471,20 @@
      <attribute name="title">
       <string>Утвержденные дежурства</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidget_2">
+     <widget class="QTableWidget" name="tablewdt_dutys">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>150</y>
-        <width>311</width>
-        <height>331</height>
+        <x>30</x>
+        <y>140</y>
+        <width>231</width>
+        <height>351</height>
        </rect>
       </property>
-      <row>
+      <column>
        <property name="text">
-        <string>Дата1</string>
+        <string>Дата</string>
        </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>Дата2</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>Дата n</string>
-       </property>
-      </row>
+      </column>
       <column>
        <property name="text">
         <string>Класс</string>

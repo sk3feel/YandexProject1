@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>619</width>
-    <height>599</height>
+    <height>598</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -171,6 +171,90 @@
         </font>
        </property>
       </widget>
+      <widget class="QPushButton" name="btn_update">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>70</y>
+         <width>131</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Обновить</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_next">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>430</y>
+         <width>131</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Следующая</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lbl_for_frase">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>380</y>
+         <width>531</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>340</y>
+         <width>331</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Вдохновляющие фразы:</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -244,7 +328,7 @@
        <property name="geometry">
         <rect>
          <x>140</x>
-         <y>300</y>
+         <y>280</y>
          <width>101</width>
          <height>16</height>
         </rect>
@@ -270,6 +354,13 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
       </widget>
       <widget class="QLineEdit" name="ledit_surname">
        <property name="geometry">
@@ -279,6 +370,13 @@
          <width>201</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
       </widget>
       <widget class="QLabel" name="label_7">
@@ -332,6 +430,13 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
       </widget>
       <widget class="QLineEdit" name="ledit_class">
        <property name="geometry">
@@ -341,6 +446,13 @@
          <width>201</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
       </widget>
       <widget class="QLabel" name="label_9">
@@ -385,42 +497,11 @@
         <string>Класс:</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_4">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>380</y>
-         <width>101</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Пароль:</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="ledit_gender">
        <property name="geometry">
         <rect>
          <x>260</x>
-         <y>300</y>
-         <width>201</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btn_change_gender">
-       <property name="geometry">
-        <rect>
-         <x>260</x>
-         <y>340</y>
+         <y>280</y>
          <width>201</width>
          <height>20</height>
         </rect>
@@ -428,34 +509,9 @@
        <property name="font">
         <font>
          <family>Futura LT</family>
-         <pointsize>9</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
-       </property>
-       <property name="text">
-        <string>Изменить пол</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btn_change_password">
-       <property name="geometry">
-        <rect>
-         <x>260</x>
-         <y>380</y>
-         <width>201</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Изменить пароль</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="ledit_fathername">
@@ -467,26 +523,12 @@
          <height>20</height>
         </rect>
        </property>
-      </widget>
-      <widget class="QPushButton" name="btn_change_class">
-       <property name="geometry">
-        <rect>
-         <x>260</x>
-         <y>260</y>
-         <width>201</width>
-         <height>20</height>
-        </rect>
-       </property>
        <property name="font">
         <font>
          <family>Futura LT</family>
-         <pointsize>9</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
-       </property>
-       <property name="text">
-        <string>Изменить класс</string>
        </property>
       </widget>
      </widget>

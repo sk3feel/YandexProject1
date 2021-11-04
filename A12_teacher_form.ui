@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>714</width>
-    <height>615</height>
+    <height>614</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -445,7 +445,7 @@
        <property name="geometry">
         <rect>
          <x>140</x>
-         <y>300</y>
+         <y>280</y>
          <width>91</width>
          <height>16</height>
         </rect>
@@ -471,6 +471,13 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
       </widget>
       <widget class="QLineEdit" name="ledit_surname">
        <property name="geometry">
@@ -480,6 +487,13 @@
          <width>221</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
       </widget>
       <widget class="QLabel" name="label_7">
@@ -533,6 +547,13 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
       </widget>
       <widget class="QLineEdit" name="ledit_class">
        <property name="geometry">
@@ -542,6 +563,13 @@
          <width>221</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Futura LT</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
       </widget>
       <widget class="QLabel" name="label_9">
@@ -586,77 +614,21 @@
         <string>Класс:</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_4">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>380</y>
-         <width>101</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Пароль:</string>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="ledit_gender">
        <property name="geometry">
         <rect>
          <x>280</x>
-         <y>300</y>
+         <y>280</y>
          <width>221</width>
          <height>20</height>
         </rect>
        </property>
-      </widget>
-      <widget class="QPushButton" name="btn_change_gender">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>340</y>
-         <width>221</width>
-         <height>21</height>
-        </rect>
-       </property>
        <property name="font">
         <font>
          <family>Futura LT</family>
-         <pointsize>9</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
-       </property>
-       <property name="text">
-        <string>Изменить пол</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btn_change_password">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>380</y>
-         <width>221</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Изменить пароль</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="ledit_fathername">
@@ -668,33 +640,19 @@
          <height>20</height>
         </rect>
        </property>
-      </widget>
-      <widget class="QPushButton" name="btn_change_class">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>260</y>
-         <width>221</width>
-         <height>21</height>
-        </rect>
-       </property>
        <property name="font">
         <font>
          <family>Futura LT</family>
-         <pointsize>9</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
-       </property>
-       <property name="text">
-        <string>Изменить класс</string>
        </property>
       </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
-      <string>Нежелательные дни</string>
+      <string>Нежелательный день</string>
      </attribute>
      <widget class="QFrame" name="frame_4">
       <property name="geometry">
@@ -735,16 +693,16 @@
         </font>
        </property>
        <property name="text">
-        <string>Выберите нежелательные для дежурства дни</string>
+        <string>Выберите нежелательный для дежурства день</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="rbtn_mon">
+      <widget class="QPushButton" name="btn_pick_bad_day">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>100</y>
-         <width>121</width>
-         <height>31</height>
+         <x>210</x>
+         <y>70</y>
+         <width>221</width>
+         <height>41</height>
         </rect>
        </property>
        <property name="font">
@@ -756,112 +714,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Понедельник</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="rbtn_tues">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>140</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Вторник</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="rbtn_wend">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>180</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Среда</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="rbtn_fri">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>260</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Пятница</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="rbtn_satur">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>300</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Суббота</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="rbtn_thur">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>220</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Futura LT</family>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Четверг</string>
+        <string>Выбрать неудобный день</string>
        </property>
       </widget>
      </widget>
@@ -913,30 +766,20 @@
        </property>
       </widget>
      </widget>
-     <widget class="QTableWidget" name="tblwg_day_class">
+     <widget class="QTableWidget" name="tablewdt_dutys">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>150</y>
-        <width>311</width>
-        <height>331</height>
+        <x>50</x>
+        <y>130</y>
+        <width>231</width>
+        <height>351</height>
        </rect>
       </property>
-      <row>
+      <column>
        <property name="text">
-        <string>Дата1</string>
+        <string>Дата</string>
        </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>Дата2</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>Дата n</string>
-       </property>
-      </row>
+      </column>
       <column>
        <property name="text">
         <string>Класс</string>
