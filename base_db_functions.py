@@ -31,15 +31,6 @@ def select_all_with_three_aspects(table_name, field1, field_value1,
     return cur.execute(value, (field_value1, field_value2, field_value3,)).fetchall()
 
 
-def insert(table_name, *values):
-    parametrs = values[:int(len(values))]
-    value_parametrs = values[int(len(values)):]
-    value = f'''INSERT INTO {table_name} ({', '.join(parametrs)}) 
-    VALUES({', '.join(value_parametrs)})'''
-    cur.execute(value).fetchall()
-    con.commit()
-
-
 def insert_for_users(*values):
     cur.execute(
         '''INSERT INTO Users

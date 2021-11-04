@@ -1,5 +1,4 @@
 from constants import *
-from function_bd import *
 
 
 def check_dict_on_emptiness(dict):
@@ -7,11 +6,6 @@ def check_dict_on_emptiness(dict):
         if dict[key] == '':
             return False
     return True
-
-
-def get_class_id_by_login(login):
-    classid = get_users_info_by_log(login)[us_inx_classid]
-    return classid
 
 
 def check_correct_status_code(code):
@@ -25,26 +19,27 @@ def code_and_class_can_exist(code, clas):
     return True
 
 
-def get_class_title_by_log(login):
-    result = get_users_info_by_log(login)
-    return get_class_title_by_class_id(result[us_inx_classid])
+def sort_days(arr):
+    arr = [i[0] for i in arr]
+    res_arr = []
+    for date in arr:
+        date = [int(j) for j in date.split()][::-1]
+        res_arr.append(date)
+    res_arr.sort()
+    result = []
+    for year, month, day in res_arr:
+        year, month, day = str(year), str(month), str(day)
+        if len(month) == 1:
+            month = '0' + month
+        if len(day) == 1:
+            day = '0' + day
+        result.append(f'{day} {month} {year}')
+    return result
 
 
 def get_near_day_of_duty(arr):
-    arr = [i[0] for i in arr]
-    res_arr = []
-    if arr:
-        for i in arr:
-            i = [int(j) for j in i.split()][::-1]
-            res_arr.append(i)
-        res_arr.sort()
-        date = res_arr[0][::-1]
-        for i in range(len(date)):
-            if len(str(date[i])) == 1:
-                date[i] = '0' + str(date[i])
-            else:
-                date[i] = str(date[i])
-        return ' '.join(date)
+    arr = sort_days(arr)
+    return arr[0]
 
 
 def is_duty_in_date(date, date_and_classid):
@@ -63,9 +58,6 @@ def get_students_lines(arr):
     return res_arr
 
 
-served_inx = 2
-
-
 def sort_studends_by_dutys(arr):
-    global served_inx
+    served_inx = 2
     return sorted(arr, key=lambda x: x[served_inx])
