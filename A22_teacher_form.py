@@ -1,20 +1,14 @@
 import sys
+from PyQt5 import QtWidgets
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5 import uic
-from PyQt5.QtGui import QPixmap, QTransform
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog
-from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QInputDialog
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 
-from constants import *
 from routine_functions import *
 from messages import *
 from base_db_functions import *
 
-login_inx = 3
+login_inx = 4
 login_inx_in_line = -1
 
 one_studens = 1
@@ -47,6 +41,7 @@ class Teacher_Form(QMainWindow):
         # Страница 4: утвержденные дежурства
         self.load_approved_dutys()
 
+    # Страница 1: выбор дежурных
     def connnect_buttons(self):
         self.btn_1_st.clicked.connect(self.pick_student)
         self.btn_2_st.clicked.connect(self.pick_student)
@@ -54,7 +49,6 @@ class Teacher_Form(QMainWindow):
         self.btn_accept.clicked.connect(self.accept)
         self.btn_end.clicked.connect(self.change_date)
 
-    # Страница 1: выбор дежурных
     def load_date_of_near_duty(self):
         self.ledit_day_month.setEnabled(False)
         self.classid = select_one_with_aspect(USERS, LOGIN, self.login, CLASS_ID)[0]
@@ -64,6 +58,7 @@ class Teacher_Form(QMainWindow):
             self.near_duty_day = get_near_day_of_duty(all_duty_days)
             self.ledit_day_month.setText(self.near_duty_day)
         else:
+            self.near_duty_day = EMPTYNESS
             self.ledit_day_month.setText('-')
 
     def check_duty_on_empty(self):
@@ -106,29 +101,37 @@ class Teacher_Form(QMainWindow):
             self.ledit_3st.setText(line_act_students[2])
 
     def pick_student(self):
-        line, ok_pressed = QInputDialog.getItem(
-            self, PICK_STUDENT, WHICH_CLASS,
-            tuple(self.array_of_studs), 0, False)
-        if ok_pressed:
-            login = line.split()[login_inx_in_line]
-            if self.sender() == self.btn_1_st:
-                self.ledit_1st.setText(line)
-                self.duty_positions[first_st] = login
+        if self.check_duty_on_empty():
+            line, ok_pressed = QInputDialog.getItem(self, PICK_STUDENT, WHICH_CLASS,
+                                                    tuple(self.array_of_studs), 0, False)
+            if ok_pressed:
+                login = line.split()[login_inx_in_line]
+                if self.sender() == self.btn_1_st:
+                    old_students_line = self.ledit_1st.text()
+                    self.ledit_1st.setText(line)
+                    self.duty_positions[first_st] = login
+                elif self.sender() == self.btn_2_st:
+                    old_students_line = self.ledit_2st.text()
+                    self.ledit_2st.setText(line)
+                    self.duty_positions[sec_st] = login
+                elif self.sender() == self.btn_3_st:
+                    old_students_line = self.ledit_3st.text()
+                    self.ledit_3st.setText(line)
+                    self.duty_positions[third_st] = login
+                self.delete_from_duty(old_students_line)
 
-            elif self.sender() == self.btn_2_st:
-                self.ledit_2st.setText(line)
-                self.duty_positions[sec_st] = login
 
-            elif self.sender() == self.btn_3_st:
-                self.ledit_3st.setText(line)
-                self.duty_positions[third_st] = login
+    def delete_from_duty(self, students_line):
+        login = students_line.split(' ')[login_inx_in_line]
+        update_aspect(USERS, ACT, base_act, LOGIN, login)
 
     def accept(self):
-        update_aspect(USERS, ACT, not_base_act, LOGIN, self.login)
-        for key in self.duty_positions:
-            login = self.duty_positions[key]
-            if login != '':
-                update_aspect(USERS, ACT, not_base_act, LOGIN, login)
+        if self.check_duty_on_empty():
+            update_aspect(USERS, ACT, not_base_act, LOGIN, self.login)
+            for key in self.duty_positions:
+                login = self.duty_positions[key]
+                if login != '':
+                    update_aspect(USERS, ACT, not_base_act, LOGIN, login)
 
     def change_date(self):
         if self.check_duty_on_empty():

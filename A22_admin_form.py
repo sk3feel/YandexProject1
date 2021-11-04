@@ -1,13 +1,9 @@
 import sys
+from PyQt5 import QtWidgets
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5 import uic
-from PyQt5.QtGui import QPixmap, QTransform
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog
 from PyQt5.QtWidgets import QInputDialog
 
-from constants import *
 from routine_functions import *
 
 from messages import *
@@ -166,7 +162,7 @@ def except_hook(cls, exception, traceback):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Admin_Form('YG')
+    ex = Admin_Form('ADMIN')
     ex.show()
     sys.excepthook = except_hook
     sys.exit(app.exec_())

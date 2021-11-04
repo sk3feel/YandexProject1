@@ -1,5 +1,4 @@
 import sqlite3
-from constants import *
 
 con = sqlite3.connect('duty_db.sqlite')
 cur = con.cursor()
