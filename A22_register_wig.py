@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 
 from PyQt5.QtWidgets import QInputDialog
 
-from constants import *
 from routine_functions import *
 from messages import *
 
@@ -22,6 +21,7 @@ class Registr(QMainWindow):
         self.btn_class.clicked.connect(self.pick_class)
         self.btn_sex.clicked.connect(self.pick_sex)
         self.clas, self.gender = EMPTY_LINE, EMPTY_LINE
+        self.datas_dict = UNDEFINED
 
     # Создание аккаунта и далее необходимые для этого функции
     def create_account(self):

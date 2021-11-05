@@ -18,22 +18,17 @@ class Admin_Form(QMainWindow):
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
         # Страница 1: выбор дежурных классов
+        self.self_date_in_db, self.date_and_classid, self.date, self.clas = \
+            UNDEFINED, UNDEFINED, UNDEFINED, UNDEFINED,
         self.calendar.selectionChanged.connect(self.change_day_calendar)
         self.btn_make_duty.clicked.connect(self.make_duty)
         self.btn_pick_class.clicked.connect(self.pick_class)
         self.load_all_ledits_btns()
         self.reload_bd()
         self.load_table_of_baddays()
-        self.date_and_classid = self.get_db_dutys()
-
-        self.self_date_in_db = None
-        self.date_and_classid = None
-        self.date = None
-        self.clas = None
-
+        # self.date_and_classid = self.get_db_dutys()
         # Страница 2: личные данные
         self.load_info_about_user()
-
         # Страница 3: утвержденные дежурства
         self.load_approved_dutys()
 
@@ -74,8 +69,8 @@ class Admin_Form(QMainWindow):
             self.tblwg_n_baddays.setItem(tablerow, 2, QtWidgets.QTableWidgetItem(bad_day))
             tablerow += 1
 
-    def get_db_dutys(self):
-        return select_table(DUTYS, *TABLES[DUTYS])
+    # def get_db_dutys(self):
+    #     return select_table(DUTYS, *TABLES[DUTYS])
 
     def reload_bd(self):
         self.date_and_classid = select_table(DUTYS, DATE, CLASS_ID)

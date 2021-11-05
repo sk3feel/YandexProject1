@@ -15,6 +15,7 @@ class Student_Form(QMainWindow):
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
         # Страница 1: подача заявки
+        self.near_duty_day, self.classid = UNDEFINED, UNDEFINED
         self.btn_bid.clicked.connect(self.make_a_bid)
         self.btn_update.clicked.connect(self.update_results)
         self.btn_next.clicked.connect(self.show_random_frase)
@@ -23,8 +24,6 @@ class Student_Form(QMainWindow):
         self.show_random_frase()
         # Страница 2: личные данные
         self.load_info_about_user()
-
-
 
     # Страница 1: подача заявки
     def load_date_of_near_duty(self):

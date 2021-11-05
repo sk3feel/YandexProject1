@@ -8,6 +8,7 @@ from routine_functions import *
 from messages import *
 from base_db_functions import *
 
+# Локальные константы
 login_inx = 4
 login_inx_in_line = -1
 
@@ -27,6 +28,7 @@ class Teacher_Form(QMainWindow):
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
         # Страница 1: выбор дежурных
+        self.array_of_studs, self.near_duty_day, self.classid = UNDEFINED, UNDEFINED, UNDEFINED
         self.duty_positions = {first_st: '', sec_st: '', third_st: ''}
         self.connnect_buttons()
         self.load_date_of_near_duty()
@@ -119,7 +121,6 @@ class Teacher_Form(QMainWindow):
                     self.ledit_3st.setText(line)
                     self.duty_positions[third_st] = login
                 self.delete_from_duty(old_students_line)
-
 
     def delete_from_duty(self, students_line):
         login = students_line.split(' ')[login_inx_in_line]
