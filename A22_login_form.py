@@ -37,6 +37,7 @@ class Log_In(QMainWindow):
         self.image.move(*IMAGE_POSITION)
         self.image.resize(*NEW_SIZE_IMAGE)
         self.image.setPixmap(self.pixmap)
+        im.close()
 
     def registration(self):
         self.reg_wind.show()

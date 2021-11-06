@@ -8,7 +8,7 @@ from routine_functions import *
 from messages import *
 from base_db_functions import *
 
-# Локальные константы
+# Очень окальные константы
 login_inx = 4
 login_inx_in_line = -1
 
@@ -28,7 +28,7 @@ class Teacher_Form(QMainWindow):
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
         # Страница 1: выбор дежурных
-        self.array_of_studs, self.near_duty_day, self.classid = UNDEFINED, UNDEFINED, UNDEFINED
+        self.array_lines_of_studs, self.near_duty_day, self.classid = UNDEFINED, UNDEFINED, UNDEFINED
         self.duty_positions = {first_st: '', sec_st: '', third_st: ''}
         self.connnect_buttons()
         self.load_date_of_near_duty()
@@ -75,7 +75,7 @@ class Teacher_Form(QMainWindow):
             SURNAME, NAME, SERVED, DESIRE_ST, LOGIN)
         array_of_students = sort_studends_by_dutys(array_of_students)
         array_studs = get_students_lines(array_of_students)
-        self.array_of_studs = array_studs
+        self.array_lines_of_studs = array_studs
 
     def load_free_ledits(self):
         self.ledit_1st.setEnabled(False)
@@ -105,7 +105,7 @@ class Teacher_Form(QMainWindow):
     def pick_student(self):
         if self.check_duty_on_empty():
             line, ok_pressed = QInputDialog.getItem(self, PICK_STUDENT, WHICH_CLASS,
-                                                    tuple(self.array_of_studs), 0, False)
+                                                    tuple(self.array_lines_of_studs), 0, False)
             if ok_pressed:
                 login = line.split()[login_inx_in_line]
                 if self.sender() == self.btn_1_st:
@@ -116,7 +116,7 @@ class Teacher_Form(QMainWindow):
                     old_students_line = self.ledit_2st.text()
                     self.ledit_2st.setText(line)
                     self.duty_positions[sec_st] = login
-                elif self.sender() == self.btn_3_st:
+                else:
                     old_students_line = self.ledit_3st.text()
                     self.ledit_3st.setText(line)
                     self.duty_positions[third_st] = login
@@ -196,7 +196,11 @@ class Teacher_Form(QMainWindow):
             self, PICK_BADDAY, WHICH_DAY,
             tuple(title_of_baddays), 0, False)
         if ok_pressed:
-            self.btn_pick_bad_day.setText(badday)
+            if badday == NO:
+                self.btn_pick_bad_day.setText(PICK_BADDAY)
+                badday = EMPTY_LINE
+            else:
+                self.btn_pick_bad_day.setText(badday)
             update_aspect(CLASSES, BAD_DAYS, badday, LOGIN_TEACHER, self.login)
 
     # Страница 4: утвержденные дежурства
