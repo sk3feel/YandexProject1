@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication
-from A22_login_form import Log_In
+from Logic.A22_login_form import Log_In
 import sys
 
 

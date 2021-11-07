@@ -1,6 +1,6 @@
 import sqlite3
 
-con = sqlite3.connect('duty_db.sqlite')
+con = sqlite3.connect('../additional_files/duty_db.sqlite')
 cur = con.cursor()
 
 

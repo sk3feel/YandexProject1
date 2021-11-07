@@ -1,10 +1,9 @@
 import sys
 from PyQt5 import QtWidgets
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtWidgets import QInputDialog
 
-from A12_teacher_form_ui import Ui_MainWindow
+from Py_Designs.A12_teacher_form_ui import Ui_MainWindow
 
 from routine_functions import *
 from messages import *

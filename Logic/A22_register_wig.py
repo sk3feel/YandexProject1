@@ -1,12 +1,10 @@
 import sys
 
-from PyQt5 import uic
-
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 from PyQt5.QtWidgets import QInputDialog
 
-from A12_register_widget_ui import Ui_wgt_registr
+from Py_Designs.A12_register_widget_ui import Ui_wgt_registr
 
 from routine_functions import *
 from messages import *

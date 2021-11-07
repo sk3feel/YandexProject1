@@ -1,9 +1,8 @@
 import sys
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import random
 
-from A12_student_form_ui import Ui_MainWindow
+from Py_Designs.A12_student_form_ui import Ui_MainWindow
 
 from routine_functions import *
 from messages import *

@@ -1,11 +1,9 @@
 import sys
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QLabel
-from PIL import Image
 
-from A12_login_form_ui import Ui_DM_Authorization
+from Py_Designs.A12_login_form_ui import Ui_DM_Authorization
 
 from A22_register_wig import Registr
 from A22_student_form import Student_Form
@@ -41,7 +39,7 @@ class Log_In(QMainWindow, Ui_DM_Authorization):
         self.image = QLabel(self)
         self.image.move(*IMAGE_POSITION)
         self.image.resize(*NEW_SIZE_IMAGE)
-        self.image.setPixmap(QPixmap('new_pict.png'))
+        self.image.setPixmap(QPixmap('../additional_files/new_pict.png'))
         # im.close()
 
     def registration(self):
