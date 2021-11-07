@@ -6,16 +6,19 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 
 from PyQt5.QtWidgets import QInputDialog
 
+from A12_register_widget_ui import Ui_wgt_registr
+
 from routine_functions import *
 from messages import *
 
 from base_db_functions import *
 
 
-class Registr(QMainWindow):
+class Registr(QMainWindow, Ui_wgt_registr):
     def __init__(self):
         super().__init__()
-        uic.loadUi(REGISTRATION_UI_FILE, self)
+        # uic.loadUi(REGISTRATION_UI_FILE, self)
+        self.setupUi(self)
         self.setWindowTitle(REGISTRATION)
         self.btn_create_account.clicked.connect(self.create_account)
         self.btn_class.clicked.connect(self.pick_class)

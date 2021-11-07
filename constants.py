@@ -107,8 +107,8 @@ NEW_IMAGE = 'new_pict.png'
 UNDEFINED = None
 
 # Именя UI файлов
-LOGIN_UI_FILE = 'A12_login_form.ui'
-REGISTRATION_UI_FILE = 'A12_register_widget.ui'
-STUDENT_UI_FILE = 'A12_student_form.ui'
-TEACHER_UI_FILE = 'A12_teacher_form.ui'
-ADMIN_UI_FILE = 'A12_admin_form.ui'
+LOGIN_UI_FILE = 'Designs/A12_login_form.ui'
+REGISTRATION_UI_FILE = 'Designs/A12_register_widget.ui'
+STUDENT_UI_FILE = 'Designs/A12_student_form.ui'
+TEACHER_UI_FILE = 'Designs/A12_teacher_form.ui'
+ADMIN_UI_FILE = 'Designs/A12_admin_form.ui'

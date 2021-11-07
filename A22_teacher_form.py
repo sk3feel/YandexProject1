@@ -4,6 +4,8 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtWidgets import QInputDialog
 
+from A12_teacher_form_ui import Ui_MainWindow
+
 from routine_functions import *
 from messages import *
 from base_db_functions import *
@@ -21,10 +23,11 @@ sec_st = 'second'
 third_st = 'third'
 
 
-class Teacher_Form(QMainWindow):
+class Teacher_Form(QMainWindow,Ui_MainWindow):
     def __init__(self, login):
         super().__init__()
-        uic.loadUi(TEACHER_UI_FILE, self)
+        self.setupUi(self)
+        # uic.loadUi(TEACHER_UI_FILE, self)
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
         # Страница 1: выбор дежурных

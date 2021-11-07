@@ -3,15 +3,18 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import random
 
+from A12_student_form_ui import Ui_MainWindow
+
 from routine_functions import *
 from messages import *
 from base_db_functions import *
 
 
-class Student_Form(QMainWindow):
+class Student_Form(QMainWindow, Ui_MainWindow):
     def __init__(self, login):
         super().__init__()
-        uic.loadUi(STUDENT_UI_FILE, self)
+        self.setupUi(self)
+        # uic.loadUi(STUDENT_UI_FILE, self)
         self.setWindowTitle(DUTY_MANAGER)
         self.login = login
         # Страница 1: подача заявки

@@ -4,6 +4,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QLabel
 from PIL import Image
+
+from A12_login_form_ui import Ui_DM_Authorization
+
 from A22_register_wig import Registr
 from A22_student_form import Student_Form
 from A22_teacher_form import Teacher_Form
@@ -13,10 +16,12 @@ from messages import *
 from base_db_functions import *
 from constants import *
 
-class Log_In(QMainWindow):
+
+class Log_In(QMainWindow, Ui_DM_Authorization):
     def __init__(self):
         super().__init__()
-        uic.loadUi(LOGIN_UI_FILE, self)
+        self.setupUi(self)
+        # uic.loadUi(LOGIN_UI_FILE, self)
         self.setWindowTitle(DUTY_MANAGER)
 
         self.image, self.student_wind, self.teacher_wind, self.admin_wind, self.pixmap = \
@@ -29,15 +34,15 @@ class Log_In(QMainWindow):
         self.reg_wind = Registr()
 
     def load_pict(self):
-        im = Image.open(IMAGE)
-        im2 = im.resize(NEW_SIZE_IMAGE)
-        im2.save(NEW_IMAGE)
-        self.pixmap = QPixmap(NEW_IMAGE)
+        # im = Image.open(IMAGE)
+        # im2 = im.resize(NEW_SIZE_IMAGE)
+        # im2.save(NEW_IMAGE)
+        # self.pixmap = QPixmap('new_pict.png')
         self.image = QLabel(self)
         self.image.move(*IMAGE_POSITION)
         self.image.resize(*NEW_SIZE_IMAGE)
-        self.image.setPixmap(self.pixmap)
-        im.close()
+        self.image.setPixmap(QPixmap('new_pict.png'))
+        # im.close()
 
     def registration(self):
         self.reg_wind.show()
