@@ -94,7 +94,7 @@ class Admin_Form(QMainWindow, Ui_MainWindow):
         # обновление переменной self.self_date_in_db
         self.reload_self_date_in_db()
 
-        # если дата в базе данных, вывести класс в ledit, в противно случае -
+        # если дата в базе данных,  вывести класс в ledit, в противно случае -
         if self.self_date_in_db:
             class_id = select_one_with_aspect(DUTYS, DATE, self.date, CLASS_ID)[0]
             class_title = select_one_with_aspect(CLASSES, CLASS_ID, class_id, TITLE)[0]
